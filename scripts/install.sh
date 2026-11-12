@@ -65,10 +65,24 @@ done
 rm -f "$ENTITLEMENTS"
 echo "[*] Signature done"
 
+# --- 3.5 Static binary patch (PRIMARY unlock channel) ---
+echo "[*] Applying static binary patch (hasP/p1a/p/p1 → constant true)"
+bash "$(dirname "$0")/apply-binary-patch.sh" "$XNP_DST"
+
+# --- 3.6 defaults belt-and-suspenders (kXnipP/kXnipP1 → true) ---
+echo "[*] Writing Pro defaults to app + group domain"
+for dom in com.zzd.Xnip ME7L72N3S3.group.com.zzd.Xnip; do
+    defaults write "$dom" kXnipP  -bool true 2>/dev/null || true
+    defaults write "$dom" kXnipP1 -bool true 2>/dev/null || true
+    defaults write "$dom" kXnipPExpirationTime -int 4102444800 2>/dev/null || true
+done
+
 # --- 4. Deploy patch files ---
 echo "[*] Deploying patch to $DEPLOY_DIR"
 mkdir -p "$DEPLOY_DIR"
 cp "$(dirname "$0")/patch.js" "$DEPLOY_DIR/patch.js"
+cp "$(dirname "$0")/watch.sh" "$DEPLOY_DIR/watch.sh"
+chmod +x "$DEPLOY_DIR/watch.sh"
 
 # --- 5. Install LaunchAgent ---
 echo "[*] Installing LaunchAgent"
