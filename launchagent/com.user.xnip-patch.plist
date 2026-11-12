@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.user.xnip-patch</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>@HOME@/.pi/xnip-patch/watch.sh</string>
+	</array>
+	<key>WatchPaths</key>
+	<array>
+		<string>@HOME@/Applications/Xnip.app</string>
+		<string>/Applications/Xnip.app</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>10</integer>
+	<key>StandardOutPath</key>
+	<string>/tmp/xnip-patch.stdout.log</string>
+	<key>StandardErrorPath</key>
+	<string>/tmp/xnip-patch.stderr.log</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>HOME</key>
+		<string>@HOME@</string>
+		<key>PATH</key>
+		<string>@FRIDA_DIR@:/usr/local/bin:/usr/bin:/bin</string>
+	</dict>
+</dict>
+</plist>
